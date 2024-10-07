@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ZenCar_Test</string>
+    <string name="validate_empty_name">The name is empty</string>
+    <string name="validate_name_contain">The name must contain at least 3 letters</string>
+    <string name="validate_password_contain">The password must contain at least 8 letters</string>
+    <string name="validate_password_not_match">Password does not match</string>
+    <string name="validate_invalid_date">The date does not match a valid template: DD.MM.yyyy</string>
 </resources>

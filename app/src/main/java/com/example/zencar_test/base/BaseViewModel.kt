@@ -15,13 +15,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-abstract class BaseViewModel<S : BaseUiState, E : BaseUiIntent>(
+abstract class BaseViewModel<S : BaseViewState, E : BaseViewIntent>(
     initialState: S,
     val dispatcherProvider: CoroutinesDispatcherProvider = CoroutinesDispatcherProvider(),
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(initialState)
-    val uiState: StateFlow<S> by lazy { _uiState }
+    private val _viewState = MutableStateFlow(initialState)
+    val viewState: StateFlow<S> by lazy { _viewState }
 
     protected val intent =
         MutableSharedFlow<E>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
@@ -31,22 +31,22 @@ abstract class BaseViewModel<S : BaseUiState, E : BaseUiIntent>(
     }
 
     protected fun updateState(block: S.() -> S) {
-        _uiState.value = block.invoke(uiState.value)
+        _viewState.value = block.invoke(viewState.value)
     }
 
     protected fun updateStateFromIo(block: S.() -> S) {
         viewModelScope.launch(context = dispatcherProvider.main) {
-            _uiState.value = block.invoke(uiState.value)
+            _viewState.value = block.invoke(viewState.value)
         }
     }
 
-    protected val uiStateData
-        get() = uiState.value
+    protected val viewStateData
+        get() = viewState.value
 
     protected abstract fun observe(event: E)
 
     fun perform(uiEvent: E) = intent.tryEmit(uiEvent)
-    fun uiState(): StateFlow<S> = uiState
+    fun uiState(): StateFlow<S> = viewState
 
     protected fun launchCoroutine(
         isCancelDelay: Boolean = false,

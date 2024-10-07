@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ZenCar_Test</string>
+    <string name="validate_empty_name">Имя не заполнено</string>
+    <string name="validate_name_contain">Имя должно содержать не менее 3 букв </string>
+    <string name="validate_password_contain">Пароль должен содержать не менее 8 букв</string>
+    <string name="validate_password_not_match">Пароль не совпадает</string>
+    <string name="validate_invalid_date">Дата не соответствует допустимому шаблону: DD.MM.yyyy</string>
+</resources>

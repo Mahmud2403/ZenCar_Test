@@ -101,4 +101,10 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
 
+    //System UI Controller
+    implementation(libs.google.accompanist.systemUiController)
+
+    //ImageLoader
+    implementation(libs.coil.compose)
+
 }
