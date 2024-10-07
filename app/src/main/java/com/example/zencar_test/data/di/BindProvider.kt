@@ -5,9 +5,11 @@ import com.example.zencar_test.data.local_source.mapper.EntityToUserMapper
 import com.example.zencar_test.data.local_source.mapper.UserToEntityMapper
 import com.example.zencar_test.data.local_source.model.UserEntity
 import com.example.zencar_test.data.repository.HomeRepositoryImpl
+import com.example.zencar_test.data.repository.LoginRepositoryImpl
 import com.example.zencar_test.data.repository.RegistrationUserRepositoryImpl
 import com.example.zencar_test.domain.model.User
 import com.example.zencar_test.domain.repository.HomeRepository
+import com.example.zencar_test.domain.repository.LoginRepository
 import com.example.zencar_test.domain.repository.RegistrationUserRepository
 import com.example.zencar_test.utils.ValidateRegistration
 import com.example.zencar_test.utils.ValidateRegistrationImpl
@@ -27,11 +29,13 @@ interface BindProvider {
     fun bindEntityToUserMapperMapper(impl: EntityToUserMapper): BaseMapper<UserEntity, User>
 
     @Binds
+    fun bindLoginRepository(impl: LoginRepositoryImpl): LoginRepository
+
+    @Binds
     fun bindRegistrationRepository(impl: RegistrationUserRepositoryImpl): RegistrationUserRepository
 
     @Binds
     fun bindHomeRepository(impl: HomeRepositoryImpl): HomeRepository
-
 
     @Binds
     fun binValidateRegistration(impl: ValidateRegistrationImpl): ValidateRegistration

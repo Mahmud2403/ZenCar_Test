@@ -48,7 +48,7 @@ class ValidateRegistrationImpl @Inject constructor(
     @SuppressLint("NewApi")
     private fun isValidDate(date: String): Boolean {
         return try {
-            val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+            val formatter = DateTimeFormatter.ofPattern("ddMMyyyy")
             val localDate = LocalDate.parse(date, formatter)
 
             val month = localDate.monthValue

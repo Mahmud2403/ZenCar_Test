@@ -21,5 +21,5 @@ interface ZenCarDao {
     fun getAllUsers(): Flow<List<UserEntity>>
 
     @Query("SELECT * FROM user_entity WHERE name = :name LIMIT 1")
-    suspend fun getUserByName(name: String): UserEntity
+    suspend fun getUserByName(name: String): UserEntity?
 }

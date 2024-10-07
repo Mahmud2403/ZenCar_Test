@@ -5,5 +5,7 @@
     <string name="validate_name_contain">Имя должно содержать не менее 3 букв </string>
     <string name="validate_password_contain">Пароль должен содержать не менее 8 букв</string>
     <string name="validate_password_not_match">Пароль не совпадает</string>
+    <string name="validate_name_not_match">Пользователь не существует</string>
     <string name="validate_invalid_date">Дата не соответствует допустимому шаблону: DD.MM.yyyy</string>
+    <string name="registartion_success">Авторизация прошла успешна</string>
 </resources>

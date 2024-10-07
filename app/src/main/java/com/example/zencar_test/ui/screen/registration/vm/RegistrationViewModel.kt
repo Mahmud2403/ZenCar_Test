@@ -12,6 +12,10 @@ import com.example.zencar_test.utils.ValidateRegistration
 import com.example.zencar_test.utils.convertMillisToDate
 import com.example.zencar_test.utils.formatLocalDateInDate
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.receiveAsFlow
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -22,6 +26,10 @@ class RegistrationViewModel @Inject constructor(
 ) : BaseViewModel<RegistrationViewState, RegistrationViewIntent>(
     initialState = RegistrationViewState()
 ) {
+    private val resultChanel = Channel<Boolean>()
+    val registerResult = resultChanel.receiveAsFlow()
+        .flowOn(Dispatchers.Main.immediate)
+
     override fun observe(event: RegistrationViewIntent) {
         when (event) {
             is RegistrationViewIntent.OnSaveImage -> {
@@ -61,8 +69,6 @@ class RegistrationViewModel @Inject constructor(
                 img = uri
             )
         }
-        Log.d("insert", "User successfully added: ${viewState.value.img}")
-
     }
 
     private fun insertUser() {
@@ -93,61 +99,64 @@ class RegistrationViewModel @Inject constructor(
                 )
             }
             val chain: (RegistrationParams) -> UpdateUserDataResult
-            with(viewStateData) {
-                with(validate) {
-                    chain = nameHandler(
-                        birthdayHandler(
-                            passwordHandler {
-                                UpdateUserDataResult.Success
-                            }
-                        )
+            with(validate) {
+                chain = nameHandler(
+                    birthdayHandler(
+                        passwordHandler {
+                            UpdateUserDataResult.Success
+                        }
                     )
+                )
+            }
+            when (val result = chain(params)) {
+                is UpdateUserDataResult.NameError -> {
+                    updateState {
+                        copy(
+                            nameError = result.message,
+                        )
+                    }
                 }
-                when (val result = chain(params)) {
-                    is UpdateUserDataResult.NameError -> {
-                        updateState {
-                            copy(
-                                nameError = result.message
-                            )
-                        }
-                        Log.e("insert", "nameError: ${result.message}")
-                    }
 
-                    is UpdateUserDataResult.PasswordError -> {
-                        updateState {
-                            copy(
-                                passwordError = result.message
-                            )
-                        }
+                is UpdateUserDataResult.PasswordError -> {
+                    updateState {
+                        copy(
+                            passwordError = result.message,
+                        )
                     }
-
-                    is UpdateUserDataResult.ConfirmPasswordError -> {
-                        updateState {
-                            copy(
-                                confirmPasswordError = result.message
-                            )
-                        }
-                    }
-
-                    is UpdateUserDataResult.BirthdayError -> {
-                        updateState {
-                            copy(
-                                birthdayError = result.message
-                            )
-                        }
-                    }
-
-                    UpdateUserDataResult.Success -> {
-                        insertUser()
-                    }
-
                 }
+
+                is UpdateUserDataResult.ConfirmPasswordError -> {
+                    updateState {
+                        copy(
+                            confirmPasswordError = result.message,
+                        )
+                    }
+                }
+
+                is UpdateUserDataResult.BirthdayError -> {
+                    updateState {
+                        copy(
+                            birthdayError = result.message,
+                        )
+                    }
+                }
+
+                UpdateUserDataResult.Success -> {
+                    insertUser()
+                    updateState {
+                        copy(
+                            img = null,
+                            name = "",
+                            birthday = "",
+                            password = "",
+                            confirmPassword = "",
+                        )
+                    }
+                    resultChanel.send(true)
+                }
+
             }
         }
-        Log.e("insert", "nameError: ${viewStateData.nameError}")
-        Log.e("insert", "passwordError: ${viewStateData.passwordError}")
-        Log.e("insert", "confirmPassword: ${viewStateData.confirmPassword}")
-        Log.e("insert", "birthday: ${viewStateData.birthdayError}")
     }
 
     private fun changeName(name: String) {
@@ -190,7 +199,8 @@ class RegistrationViewModel @Inject constructor(
         val birthday = convertMillisToDate(date)
         updateState {
             copy(
-                birthday = birthday
+                birthday = birthday,
+                birthdayError = null,
             )
         }
     }

@@ -11,5 +11,6 @@ data class RegistrationViewState(
     val password: String = "",
     val passwordError: String? = "",
     val confirmPassword: String = "",
-    val confirmPasswordError: String? = null
-): BaseViewState
+    val confirmPasswordError: String? = null,
+    val isLoading: Boolean = false,
+) : BaseViewState

@@ -4,5 +4,7 @@
     <string name="validate_name_contain">The name must contain at least 3 letters</string>
     <string name="validate_password_contain">The password must contain at least 8 letters</string>
     <string name="validate_password_not_match">Password does not match</string>
+    <string name="validate_name_not_match">The user does not exist</string>
     <string name="validate_invalid_date">The date does not match a valid template: DD.MM.yyyy</string>
+    <string name="registartion_success">Authorization was successful</string>
 </resources>
