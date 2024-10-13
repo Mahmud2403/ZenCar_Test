@@ -34,17 +34,6 @@ class RegistrationViewModel @Inject constructor(
     val registerResult = resultChanel.receiveAsFlow()
         .flowOn(Dispatchers.Main.immediate)
 
-    init {
-        updateState {
-            copy(
-                name = "",
-                img = "",
-                birthday = "",
-                password = "",
-                confirmPassword = "",
-            )
-        }
-    }
 
     override fun observe(event: RegistrationViewIntent) {
         when (event) {
@@ -104,6 +93,11 @@ class RegistrationViewModel @Inject constructor(
                         copy(
                             isLoading = false,
                             error = null,
+                            name = "",
+                            img = "",
+                            birthday = "",
+                            password = "",
+                            confirmPassword = "",
                         )
                     }
                     resultChanel.send(true)

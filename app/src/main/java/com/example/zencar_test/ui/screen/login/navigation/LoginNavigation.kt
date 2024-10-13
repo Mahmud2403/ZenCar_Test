@@ -25,11 +25,8 @@ fun NavGraphBuilder.login(
 ) {
     composable(
         route = LoginNavigation.route
-    ) { backStackEntry ->
-        val parentEntry = remember(backStackEntry) {
-            navController.getBackStackEntry(LoginNavigation.route)
-        }
-        val viewModel = hiltViewModel<LoginViewModel>(parentEntry)
+    ) {
+        val viewModel = hiltViewModel<LoginViewModel>()
         val context = LocalContext.current
 
         LaunchedEffect(key1 = viewModel) {

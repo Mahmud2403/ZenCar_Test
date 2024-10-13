@@ -46,6 +46,7 @@ import com.example.zencar_test.ui.screen.home.component.UserCard
 import com.example.zencar_test.ui.screen.home.intents.HomeViewIntent
 import com.example.zencar_test.ui.screen.home.vm.HomeViewModel
 import com.example.zencar_test.ui.theme.PrimaryCyan
+import com.example.zencar_test.utils.VerticalSpace
 import com.example.zencar_test.utils.clickableWithRipple
 import com.example.zencar_test.utils.formatDateAndTime
 
@@ -64,7 +65,9 @@ fun HomeScreen(
         colorScheme = if (isDarkTheme) darkColorScheme() else lightColorScheme()
     ) {
         Scaffold(
-            modifier = modifier,
+            modifier = modifier
+                .systemBarsPadding()
+                .fillMaxSize(),
             topBar = {
                 if (!state.isLoading)
                     HomeTopAppBar(
