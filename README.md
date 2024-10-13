@@ -60,7 +60,15 @@ The project uses the **MVI** pattern, which ensures a unidirectional data flow:
 
 ## Preview:
 ![image](https://github.com/user-attachments/assets/d064de5a-9a48-4c9a-9a2c-7b87d72991b0) ![image](https://github.com/user-attachments/assets/d42dccd2-1899-42cb-8c36-13ab2ba92073)
-![image](https://github.com/user-attachments/assets/e7a824d7-9ba0-41b6-9af2-411f1c6a02a9)
+![image](https://github.com/user-attachments/assets/e7a824d7-9ba0-41b6-9af2-411f1c6a02a9) ![image](https://github.com/user-attachments/assets/f13cf620-379f-4ae0-bf95-9776030f5bb7)
+![image](https://github.com/user-attachments/assets/c2f5cf10-7a75-4a31-80b3-4d8ad6b141c7) ![image](https://github.com/user-attachments/assets/6d0d2def-9713-44ed-b678-abd3cda4d65b)
+![image](https://github.com/user-attachments/assets/fd17133b-f98f-4923-95cc-cb1dbe6ba0da) ![image](https://github.com/user-attachments/assets/8d3e485f-cf4e-4c4a-b243-22e86fbca687)
+![image](https://github.com/user-attachments/assets/c810a92f-476c-44d1-9cfc-92c03a1addf7)
+
+
+
+
+
 
 
 
