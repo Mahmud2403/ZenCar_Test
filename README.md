@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/47bb01ca-efa8-4cbe-a5e1-ef8e0d821bc2)
 ## Project Overview
 
 This project follows the **Model-View-Intent (MVI)** architectural pattern and is built using **Jetpack Compose** for UI. The project involves a user registration, login (authorization), and a main screen that manages user information and settings.
@@ -60,18 +59,10 @@ The project uses the **MVI** pattern, which ensures a unidirectional data flow:
 - **Datastore**: Used for lightweight data persistence.
 
 ## Preview:
-<img src="https://github.com/user-attachments/assets/196f9103-e38b-4a13-8b7c-d3a879d8e259" height="200">
-<img src="https://github.com/user-attachments/assets/598767e2-06fe-4c45-9b38-1a983905c4c4" height="200">
-<img src="https://github.com/user-attachments/assets/4b6fe794-1e5c-4739-9db9-375def1d20d2" height="200">
-<img src="https://github.com/user-attachments/assets/6a1484aa-7794-4de4-9cf6-04cf8fcab602" height="200">
-<img src="https://github.com/user-attachments/assets/318344df-0c2d-4031-bf15-5e551594630f" height="200">
-<img src="https://github.com/user-attachments/assets/74ad84ef-4fde-427e-bc86-01d9b47e06d4" height="200">
-<img src="https://github.com/user-attachments/assets/f618274d-5ff5-4580-ac3d-d481f2851f33" height="200">
-<img src="https://github.com/user-attachments/assets/7b472199-c5f6-437e-be3e-829647d0242c" height="200">
-<img src="https://github.com/user-attachments/assets/a358d819-f96a-4ebc-87eb-bcf84ca7b25f" height="200">
-<img src="https://github.com/user-attachments/assets/4086ecc1-4a6b-4627-a0cc-2f8c6ceee21e" height="200">
-<img src="https://github.com/user-attachments/assets/3b0d22c8-7051-432a-bc7f-af86e75aafdb" height="200">
-<img src="https://github.com/user-attachments/assets/d34e1135-aeb5-42fc-bab0-ff158c32547e" height="200">
+<img src="https://github.com/user-attachments/assets/196f9103-e38b-4a13-8b7c-d3a879d8e259" height="200"> <img src="https://github.com/user-attachments/assets/598767e2-06fe-4c45-9b38-1a983905c4c4" height="200">
+<img src="https://github.com/user-attachments/assets/4b6fe794-1e5c-4739-9db9-375def1d20d2" height="200"> <img src="https://github.com/user-attachments/assets/6a1484aa-7794-4de4-9cf6-04cf8fcab602" height="200"><img src="https://github.com/user-attachments/assets/318344df-0c2d-4031-bf15-5e551594630f" height="200"> <img src="https://github.com/user-attachments/assets/74ad84ef-4fde-427e-bc86-01d9b47e06d4" height="200">
+<img src="https://github.com/user-attachments/assets/f618274d-5ff5-4580-ac3d-d481f2851f33" height="200"> <img src="https://github.com/user-attachments/assets/7b472199-c5f6-437e-be3e-829647d0242c" height="200"><img src="https://github.com/user-attachments/assets/a358d819-f96a-4ebc-87eb-bcf84ca7b25f" height="200"> <img src="https://github.com/user-attachments/assets/4086ecc1-4a6b-4627-a0cc-2f8c6ceee21e" height="200">
+<img src="https://github.com/user-attachments/assets/3b0d22c8-7051-432a-bc7f-af86e75aafdb" height="200"> <img src="https://github.com/user-attachments/assets/d34e1135-aeb5-42fc-bab0-ff158c32547e" height="200">
 
 
 
