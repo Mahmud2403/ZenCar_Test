@@ -59,7 +59,8 @@ The project uses the **MVI** pattern, which ensures a unidirectional data flow:
 - **Datastore**: Used for lightweight data persistence.
 
 ## Preview:
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/d064de5a-9a48-4c9a-9a2c-7b87d72991b0)
+
 
 
 
