@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -39,11 +40,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.zencar_test.R
 import com.example.zencar_test.commnon.AuthorizationTopBar
 import com.example.zencar_test.commnon.ErrorMessage
 import com.example.zencar_test.commnon.ZenCarButton
 import com.example.zencar_test.commnon.ZenCarTextField
 import com.example.zencar_test.ui.screen.login.intents.LoginViewIntent
+import com.example.zencar_test.ui.screen.login.intents.LoginViewState
 import com.example.zencar_test.ui.screen.login.vm.LoginViewModel
 import com.example.zencar_test.ui.theme.ButtonColor
 import com.example.zencar_test.ui.theme.SecondaryCyan
@@ -62,7 +65,9 @@ fun LogInScreenPreview() {
 fun LoginScreen(
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = hiltViewModel(),
+    onClickRegistration: () -> Unit,
 ) {
+
     val state by viewModel.viewState.collectAsStateWithLifecycle()
 
     var showPassword by remember {
@@ -75,17 +80,17 @@ fun LoginScreen(
             .systemBarsPadding(),
         topBar = {
             AuthorizationTopBar(
-                title = "Вход в приложение",
+                title = stringResource(R.string.login_app_title),
             )
         },
         bottomBar = {
             TextButton(
                 modifier = Modifier,
-                onClick = {},
+                onClick = onClickRegistration,
                 content = {
                     Text(
                         modifier = Modifier,
-                        text = "Регистрация",
+                        text = stringResource(R.string.registration_title),
                         style = TextStyle(
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Normal,
@@ -122,7 +127,7 @@ fun LoginScreen(
                 onValueChange = { name ->
                     viewModel.perform(LoginViewIntent.OnChangeName(name))
                 },
-                placeholder = "Введите имя пользователя",
+                placeholder = stringResource(id = R.string.enter_name_user),
                 border = if (state.nameError.isNullOrEmpty()) null else BorderStroke(
                     1.dp,
                     Color.Red
@@ -149,7 +154,7 @@ fun LoginScreen(
                 onValueChange = { password ->
                     viewModel.perform(LoginViewIntent.OnChangePassword(password))
                 },
-                placeholder = "Введите пароль",
+                placeholder = stringResource(id = R.string.enter_password),
                 border = if (state.passwordError.isNullOrEmpty()) null else BorderStroke(
                     1.dp,
                     Color.Red
@@ -188,7 +193,7 @@ fun LoginScreen(
             ) {
                 Text(
                     modifier = Modifier,
-                    text = "ВОЙТИ",
+                    text = stringResource(R.string.login_title),
                     style = MaterialTheme.typography.labelLarge,
                     color = Color.White,
                 )

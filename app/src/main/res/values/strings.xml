@@ -6,5 +6,16 @@
     <string name="validate_password_not_match">Password does not match</string>
     <string name="validate_name_not_match">The user does not exist</string>
     <string name="validate_invalid_date">The date does not match a valid template: DD.MM.yyyy</string>
-    <string name="registartion_success">Authorization was successful</string>
+    <string name="registration_success">Authorization was successful</string>
+    <string name="date_created">create: %s</string>
+    <string name="user_top_bar_title">Users</string>
+    <string name="specify_date_birth">Enter your date of birth</string>
+    <string name="register_title">Register</string>
+    <string name="login_app_title">Log in to the app</string>
+    <string name="create_user">Create a user</string>
+    <string name="enter_name_user">Enter the user name</string>
+    <string name="enter_password">Enter the password</string>
+    <string name="repeat_passsword">Repeat the password</string>
+    <string name="registration_title">Registration</string>
+    <string name="login_title">LOGIN</string>
 </resources>

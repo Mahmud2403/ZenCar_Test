@@ -5,7 +5,7 @@ import com.example.zencar_test.base.BaseViewState
 data class RegistrationViewState(
     val name: String = "",
     val nameError: String? = null,
-    val img: String? = null,
+    val img: String = "",
     val birthday: String = "",
     val birthdayError: String? = null,
     val password: String = "",
@@ -13,4 +13,5 @@ data class RegistrationViewState(
     val confirmPassword: String = "",
     val confirmPasswordError: String? = null,
     val isLoading: Boolean = false,
+    val error: String? = null,
 ) : BaseViewState

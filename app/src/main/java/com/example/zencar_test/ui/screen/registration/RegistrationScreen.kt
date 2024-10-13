@@ -1,7 +1,8 @@
 package com.example.zencar_test.ui.screen.registration
 
+import android.content.Intent
 import android.net.Uri
-import android.widget.Toast
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
@@ -25,8 +26,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -43,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.zencar_test.R
+import com.example.zencar_test.TAG
 import com.example.zencar_test.commnon.AuthorizationTopBar
 import com.example.zencar_test.commnon.DatePickerModal
 import com.example.zencar_test.commnon.ErrorMessage
@@ -64,20 +67,29 @@ import com.example.zencar_test.utils.toggle
 fun RegistrationScreen(
     modifier: Modifier = Modifier,
     viewModel: RegistrationViewModel = hiltViewModel(),
+    onClickBack: () -> Unit,
 ) {
-    val context = LocalContext.current
+
     val state by viewModel.viewState.collectAsStateWithLifecycle()
     var imageUri by remember { mutableStateOf<Uri?>(null) }
+    val contentResolver = LocalContext.current.contentResolver
 
     val launcher = rememberLauncherForActivityResult(
-        contract =
-        ActivityResultContracts.GetContent()
+        contract = ActivityResultContracts.OpenDocument()
     ) {
         it?.let { uri ->
             imageUri = uri
+            contentResolver.takePersistableUriPermission(
+                uri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            )
+
             viewModel.perform(RegistrationViewIntent.OnSaveImage(uri.toString()))
         }
     }
+
+    Log.e(TAG, "imageUri: $imageUri", )
 
     var showPassword by remember {
         mutableStateOf(false)
@@ -86,18 +98,6 @@ fun RegistrationScreen(
         mutableStateOf(false)
     }
     var datePickerIsVisible by rememberMutableStateOf(false)
-
-    LaunchedEffect(viewModel) {
-        viewModel.registerResult.collect { isRegistered ->
-            if (isRegistered) {
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.registartion_success),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
 
     DatePickerModal(
         visible = datePickerIsVisible,
@@ -128,14 +128,14 @@ fun RegistrationScreen(
                     Icon(
                         modifier = Modifier
                             .clickableWithRipple(
-                                onClick = {}
+                                onClick = onClickBack
                             ),
                         imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                         contentDescription = null,
                         tint = Color.White,
                     )
                 },
-                title = "Создать пользователя"
+                title = stringResource(R.string.create_user)
             )
         },
         containerColor = SecondaryCyan,
@@ -155,7 +155,7 @@ fun RegistrationScreen(
                 UserAvatar(
                     imageUri = imageUri,
                     onClickPickImage = {
-                        launcher.launch("image/*")
+                        launcher.launch(arrayOf("image/*"))
                     }
                 )
 
@@ -178,7 +178,7 @@ fun RegistrationScreen(
                         1.dp,
                         Color.Red
                     ),
-                    placeholder = "Введите имя пользователя",
+                    placeholder = stringResource(R.string.enter_name_user),
                     shape = MaterialTheme.shapes.medium,
                     innerPadding = PaddingValues(
                         horizontal = 20.dp,
@@ -217,7 +217,7 @@ fun RegistrationScreen(
                         horizontal = 20.dp,
                         vertical = 16.dp,
                     ),
-                    placeholder = "Введите дату рождения",
+                    placeholder = stringResource(R.string.specify_date_birth),
                     trailingIcon = {
                         Icon(
                             modifier = Modifier
@@ -228,7 +228,7 @@ fun RegistrationScreen(
                                 )
                                 .padding(PaddingValues(0.dp)),
                             imageVector = Icons.Default.CalendarToday,
-                            contentDescription = "Выбрать дату"
+                            contentDescription = null
                         )
                     }
                 )
@@ -248,7 +248,7 @@ fun RegistrationScreen(
                     onValueChange = { password ->
                         viewModel.perform(RegistrationViewIntent.OnChangePassword(password))
                     },
-                    placeholder = "Введите пароль",
+                    placeholder = stringResource(R.string.enter_password),
                     border = if (state.passwordError.isNullOrEmpty()) null else BorderStroke(
                         1.dp,
                         Color.Red
@@ -297,7 +297,7 @@ fun RegistrationScreen(
                             )
                         )
                     },
-                    placeholder = "Повторите пароль",
+                    placeholder = stringResource(R.string.repeat_passsword),
                     isError = !state.confirmPasswordError.isNullOrEmpty(),
                     border = if (state.confirmPasswordError.isNullOrEmpty()) null else BorderStroke(
                         1.dp,
@@ -333,12 +333,13 @@ fun RegistrationScreen(
                     onClick = {
                         viewModel.perform(RegistrationViewIntent.InsertUser)
                     },
-//                    isLoading = false,
+                    isLoading = state.isLoading,
+                    enable = !state.isLoading,
                     backgroundColor = ButtonColor,
                 ) {
-                    androidx.compose.material3.Text(
+                    Text(
                         modifier = Modifier,
-                        text = "Зарегистрироваться",
+                        text = state.error ?: stringResource(R.string.register_title),
                         style = typography.labelLarge,
                         color = Color.White,
                     )

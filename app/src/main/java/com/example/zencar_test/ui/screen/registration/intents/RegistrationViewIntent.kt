@@ -14,5 +14,5 @@ sealed class RegistrationViewIntent: BaseViewIntent {
     data class OnChangeBirthday(val birthday: String): RegistrationViewIntent()
     data class OnDateSelect(val birthday: Long): RegistrationViewIntent()
 
-    object InsertUser: RegistrationViewIntent()
+    data object InsertUser: RegistrationViewIntent()
 }

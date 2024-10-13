@@ -43,7 +43,7 @@ abstract class BaseViewModel<S : BaseViewState, E : BaseViewIntent>(
     protected val viewStateData
         get() = viewState.value
 
-    protected abstract fun observe(event: E)
+    abstract fun observe(event: E)
 
     fun perform(uiEvent: E) = intent.tryEmit(uiEvent)
     fun uiState(): StateFlow<S> = viewState

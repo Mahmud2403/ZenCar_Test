@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "378434849951",
+    "project_id": "zencartest-673a3",
+    "storage_bucket": "zencartest-673a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378434849951:android:c93ba28c466d363d54e6aa",
+        "android_client_info": {
+          "package_name": "com.example.zencar_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFyAG8xGPKsVxsN0pxcYlnpscnD3SD4F8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

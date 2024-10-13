@@ -1,12 +1,15 @@
 package com.example.zencar_test.utils
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
@@ -53,10 +56,48 @@ fun convertMillisToDate(millis: Long): String {
     return formatter.format(Date(millis))
 }
 
-@SuppressLint("NewApi")
-fun formatLocalDateInDate(inputDate: LocalDate): String {
-    val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    val outputFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-    val date = LocalDate.parse(inputDate.toString(), inputFormatter)
-    return date.format(outputFormatter)
+
+fun formatDate(inputDate: String): String {
+    if (inputDate.isEmpty()) {
+        return ""
+    }
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val input = DateTimeFormatter.ofPattern("ddMMyyyy")
+        val output = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val date = LocalDate.parse(inputDate, input)
+        date.format(output)
+    } else {
+        val input = SimpleDateFormat("ddMMyyyy", Locale.getDefault())
+        val output = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        val date = input.parse(inputDate) ?: return ""
+        output.format(date)
+    }
+}
+
+fun formatDateAndTime(inputDate: String): String {
+    if (inputDate.isEmpty()) {
+        return ""
+    }
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val input = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
+        val output = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val date = LocalDate.parse(inputDate, input)
+        date.format(output)
+    } else {
+        val input = SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault())
+        val output = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        val date = input.parse(inputDate) ?: return ""
+        output.format(date)
+    }
+}
+
+
+fun formatLocalDateInDate(inputDate: LocalDateTime): String {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val outputFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
+        inputDate.format(outputFormatter)
+    } else {
+        val output = SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault())
+        output.format(Date())
+    }
 }

@@ -4,17 +4,12 @@ plugins {
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.example.zencar_test"
     compileSdk = 34
-
-//    kapt {
-//        arguments{
-//            arg("room.schemaLocation", "$projectDir/schemas".toString())
-//        }
-//    }
 
     defaultConfig {
         applicationId = "com.example.zencar_test"
@@ -92,8 +87,8 @@ dependencies {
 
     //Hilt
     implementation(libs.hilt.navigation)
-    kapt(libs.hilt.compiler)
     implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 //    implementation(libs.startup)
 
     //Room
@@ -107,4 +102,13 @@ dependencies {
     //ImageLoader
     implementation(libs.coil.compose)
 
+    //Firebase
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.play.services.auth)
+
+    //Navigation
+    implementation(libs.androidx.navigation.compose)
+
+    //Datastore
+    implementation(libs.androidx.datastore)
 }

@@ -7,5 +7,4 @@ sealed class LoginViewIntent: BaseViewIntent {
     data class OnChangePassword(val password: String): LoginViewIntent()
 
     object OnClickLogin: LoginViewIntent()
-    object OnClickRegistration: LoginViewIntent()
 }

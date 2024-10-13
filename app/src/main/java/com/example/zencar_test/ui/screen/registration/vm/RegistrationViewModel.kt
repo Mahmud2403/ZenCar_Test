@@ -1,7 +1,10 @@
 package com.example.zencar_test.ui.screen.registration.vm
 
 import android.util.Log
+import androidx.compose.ui.util.trace
+import com.example.zencar_test.TAG
 import com.example.zencar_test.base.BaseViewModel
+import com.example.zencar_test.data.util.collectAsResult
 import com.example.zencar_test.domain.model.User
 import com.example.zencar_test.domain.repository.RegistrationUserRepository
 import com.example.zencar_test.ui.screen.registration.intents.RegistrationViewIntent
@@ -17,11 +20,12 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
-    private val registrationUserRepository: RegistrationUserRepository,
+    private val repository: RegistrationUserRepository,
     private val validate: ValidateRegistration,
 ) : BaseViewModel<RegistrationViewState, RegistrationViewIntent>(
     initialState = RegistrationViewState()
@@ -29,6 +33,18 @@ class RegistrationViewModel @Inject constructor(
     private val resultChanel = Channel<Boolean>()
     val registerResult = resultChanel.receiveAsFlow()
         .flowOn(Dispatchers.Main.immediate)
+
+    init {
+        updateState {
+            copy(
+                name = "",
+                img = "",
+                birthday = "",
+                password = "",
+                confirmPassword = "",
+            )
+        }
+    }
 
     override fun observe(event: RegistrationViewIntent) {
         when (event) {
@@ -63,7 +79,7 @@ class RegistrationViewModel @Inject constructor(
     }
 
 
-    private fun saveImage(uri: String?) {
+    private fun saveImage(uri: String) {
         updateStateFromIo {
             copy(
                 img = uri
@@ -73,15 +89,41 @@ class RegistrationViewModel @Inject constructor(
 
     private fun insertUser() {
         launchIOCoroutine {
-            val dateCreated = formatLocalDateInDate(LocalDate.now())
-            registrationUserRepository.insertUser(
+            val dateCreated = formatLocalDateInDate(LocalDateTime.now())
+            repository.insertUser(
                 User(
-                    img = viewState.value.img,
-                    name = viewState.value.name,
-                    birthday = viewState.value.birthday,
-                    password = viewState.value.password,
+                    img = viewStateData.img,
+                    name = viewStateData.name,
+                    birthday = viewStateData.birthday,
+                    password = viewStateData.password,
                     dateCreated = dateCreated,
                 )
+            ).collectAsResult(
+                onSuccess = { id ->
+                    updateState {
+                        copy(
+                            isLoading = false,
+                            error = null,
+                        )
+                    }
+                    resultChanel.send(true)
+                },
+                onLoading = {
+                    updateState {
+                        copy(
+                            isLoading = true,
+                            error = null,
+                        )
+                    }
+                },
+                onError = { ex, _ ->
+                    updateState {
+                        copy(
+                            error = ex.message.toString(),
+                            isLoading = false,
+                        )
+                    }
+                }
             )
         }
     }
@@ -143,16 +185,6 @@ class RegistrationViewModel @Inject constructor(
 
                 UpdateUserDataResult.Success -> {
                     insertUser()
-                    updateState {
-                        copy(
-                            img = null,
-                            name = "",
-                            birthday = "",
-                            password = "",
-                            confirmPassword = "",
-                        )
-                    }
-                    resultChanel.send(true)
                 }
 
             }

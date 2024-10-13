@@ -10,11 +10,12 @@ class UserToEntityMapper @Inject constructor(
 ): BaseMapper<User, UserEntity> {
     override fun map(from: User) =
         UserEntity(
-            id = 0,
+            id = from.id,
             img = from.img,
             name = from.name,
             birthday = from.birthday,
             password = from.password,
             dateCreated = from.dateCreated,
+            isCurrent = from.isCurrent,
         )
 }

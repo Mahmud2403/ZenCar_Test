@@ -7,4 +7,5 @@ data class LoginViewState(
     val nameError: String? = null,
     val password: String = "",
     val passwordError: String? = null,
+    val isLoading: Boolean = false,
 ): BaseViewState

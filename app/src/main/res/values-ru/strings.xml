@@ -7,5 +7,16 @@
     <string name="validate_password_not_match">Пароль не совпадает</string>
     <string name="validate_name_not_match">Пользователь не существует</string>
     <string name="validate_invalid_date">Дата не соответствует допустимому шаблону: DD.MM.yyyy</string>
-    <string name="registartion_success">Авторизация прошла успешна</string>
+    <string name="registration_success">Авторизация прошла успешна</string>
+    <string name="date_created">создан: %s</string>
+    <string name="user_top_bar_title">Пользователи</string>
+    <string name="specify_date_birth">Введите дату рождения</string>
+    <string name="register_title">Зарегистрироваться</string>
+    <string name="login_app_title">Вход в приложение</string>
+    <string name="create_user">Создать пользователя</string>
+    <string name="enter_name_user">Введите имя пользователя</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="repeat_passsword">Повторите пароль</string>
+    <string name="registration_title">Регистрация</string>
+    <string name="login_title">ВОЙТИ</string>
 </resources>

@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.example.zencar_test.R
 
@@ -31,11 +32,11 @@ import com.example.zencar_test.R
 @Composable
 fun UserAvatar(
     modifier: Modifier = Modifier,
-    imageUri: Uri? = null,
+    imageUri: Any? = null,
     onClickPickImage: () -> Unit = {},
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(150.dp)
             .clip(CircleShape)
             .background(Color.Gray)
@@ -47,8 +48,12 @@ fun UserAvatar(
                     .clickable {
                         onClickPickImage()
                     },
-                model = ImageRequest.Builder(LocalContext.current).data(imageUri)
-                    .crossfade(enable = true).build(),
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(imageUri)
+                    .crossfade(enable = true)
+                    .diskCachePolicy(CachePolicy.ENABLED)
+                    .memoryCachePolicy(CachePolicy.DISABLED)
+                    .build(),
                 contentDescription = "Avatar Image",
                 contentScale = ContentScale.Crop,
             )
